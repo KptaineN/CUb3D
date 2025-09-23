@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 13:46:16 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/22 16:02:43 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/23 18:26:34 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void free_cub(t_cub *cub)
         free(cub->map);
     }
     if (cub->player)
-        free(cub->player);
+    player_cleanup(cub);
     
     free(cub);
 }
@@ -105,6 +105,13 @@ int main(int argc, char **argv)
     if (result == 0)
     {
         printf("parser reussi\n");
+        /* initialize player from parsed map (find spawn pos & dir) */
+        if (!player_init(cub))
+        {
+            printf("Erreur: impossible d'initialiser le joueur\n");
+            free_cub(cub);
+            return (1);
+        }
         start_game(cub);
     }
     else

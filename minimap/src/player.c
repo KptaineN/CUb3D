@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:30:00 by nkief             #+#    #+#             */
-/*   Updated: 2025/09/22 16:38:31 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/23 18:07:55 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void    move_player(t_player *player)
     //printf("DEBUG move_player: key_right=%d, position avant=%.0f\n", player->key_right, player->position->x);
     
     int walking;
-    float angle_speed = 0.1;
+    double angle_speed = 0.05;
     float cos_angle = cos(player->angle);
     float sin_angle = sin(player->angle);
     

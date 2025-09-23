@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adi-marc <adi-marc@student.42luxembourg    +#+  +:+       +#+        */
+/*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 13:03:07 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/22 13:39:04 by adi-marc         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:01:02 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double  deg_to_radiant(double deg)
 {
-    return (deg * M_PI / 180.0);
+    return (deg * PI / 180.0);
 }
 
 void    player_cleanup(t_cub *cub)

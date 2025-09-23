@@ -21,6 +21,8 @@ SRC_FILES = $(SRC_DIR)/main.c \
 			$(SRC_DIR)/parser/wall_checker.c \
 			$(SRC_DIR)/start_game.c \
 			$(SRC_DIR)/player.c \
+			$(SRC_DIR)/player_init/player_init.c \
+			$(SRC_DIR)/player_init/player_init_utils.c \
 			$(SRC_DIR)/draw_something.c \
 			$(SRC_DIR)/window_management_clean.c
 

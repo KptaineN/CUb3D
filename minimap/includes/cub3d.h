@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 13:46:22 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/22 16:41:28 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/23 18:26:34 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ void move_player(t_player *player);
 int key_press(int keycode, t_cub *cub);
 int key_drop(int keycode, t_cub *cub);
 void draw_map(t_cub *cub);
+int player_init(t_cub *cub);
+/* player_init utilities */
+double deg_to_radiant(double deg);
+int player_allocate(t_cub *cub);
+void player_cleanup(t_cub *cub);
 
 // Fonctions de nettoyage
 void cleanup_resources(t_cub *cub);
