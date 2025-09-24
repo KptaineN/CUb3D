@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:10:00 by nkief             #+#    #+#             */
-/*   Updated: 2025/09/23 18:15:48 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/24 13:44:56 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,35 @@ bool touch(float px, float py, t_cub *game)
     return (line[x] == '1');
 }
 
+float distance(float x, float y)
+{
+    return (sqrt(x * x + y * y));
+}
+
+void    draw_line(t_player *player, t_cub *game, float start_x)
+{
+    float cos_angle = cos(start_x);
+    float sin_angle = sin(start_x);
+    float ray_x = player->position->x;
+    float ray_y = player->position->y;
+    
+    while (!touch(ray_x, ray_y, game))
+    {
+        put_pixel(ray_x, ray_y, 0xF00000, game);
+        ray_x += cos_angle;
+        ray_y += sin_angle;
+    }
+    float dist = distance(ray_x - player->position->x, ray_y - player->position->y );
+    float height = (BLOCK / dist) * (WIDTH / 2);
+    int start_y = (HEIGHT - height) / 2;
+    int end = start_y + height;
+    while (start_y < end)
+    {
+        put_pixel(ray_x, start_y, 255, game);
+        start_y++;
+    }
+}
+
 int draw_loop(t_cub *cubing)
 {
    // printf("DEBUG draw_loop: position x=%.0f, y=%.0f\n", cubing->player->position->x, cubing->player->position->y);  // Print pour voir la position
@@ -98,10 +127,21 @@ int draw_loop(t_cub *cubing)
 	close_image(cubing);
 	draw_y_triangle(player->position->x, player->position->y, 10 ,0xFFFF00, cubing);
 	draw_map(cubing);
-    mlx_put_image_to_window(cubing->mlx, cubing->window, cubing->image, 0, 0);
-	
-    float ray_x = player->position->x;
+
+    float fraction = PI / 3 / WIDTH;
+    float start_x = player->angle - PI / 6;
+    int i = 0;
+    while (i < WIDTH)
+    {
+        draw_line(player, cubing, start_x);
+        start_x += fraction;
+        i++;
+    }
+    /*
+      float ray_x = player->position->x;
+      ray_x += 5;
     float ray_y = player->position->y;
+    ray_y += 5;       
     float cos_angle = cos(player->angle);
     float sin_angle = sin(player->angle);
     while (!touch(ray_x, ray_y, cubing))
@@ -109,7 +149,10 @@ int draw_loop(t_cub *cubing)
         put_pixel(ray_x, ray_y, 0xFF0000, cubing);
         ray_x += cos_angle;
         ray_y += sin_angle;
-    }
+    }*/
+    mlx_put_image_to_window(cubing->mlx, cubing->window, cubing->image, 0, 0);
+	
+  
     
     
     return (0);
