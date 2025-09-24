@@ -4,10 +4,13 @@
 
 void    put_pixel(int x, int y, int color, t_cub *cub)
 {
-    int i;
+    int32_t i;
+
+    if (!cub || !cub->data)
+        return ;
     if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return ;
-    i = y * cub->size_line + x * (cub->bpp / 8);
+    i = (int32_t)y * cub->size_line + (int32_t)x * (cub->bpp / 8);
     cub->data[i] = color & 0xFF;
     cub->data[i + 1] = (color >> 8) & 0xFF;
     cub->data[i + 2] = (color >> 16) & 0xFF;
@@ -41,9 +44,14 @@ void draw_y_triangle(int x, int y, int size, int color, t_cub *cub)
 
 void    close_image(t_cub *cub)
 {
-    int x;
-    int y;
-    
+    size_t  buffer_size;
+
+    if (!cub || !cub->data)
+        return ;
+    buffer_size = (size_t)cub->size_line * HEIGHT;
+    /* Ancienne approche: double boucle qui appelait put_pixel pour effacer
+     * chaque pixel un par un (très coûteux). */
+    /*
     y = 0;
     while (y < HEIGHT)
     {
@@ -55,6 +63,8 @@ void    close_image(t_cub *cub)
         }
         y++;
     }
+    */
+    ft_bzero(cub->data, buffer_size);
 }
 
 void draw_square(int x, int y, int size, int color, t_cub *cub)
@@ -118,4 +128,90 @@ void draw_map(t_cub *cub)
         }
         y++;
     }
+}
+
+static void draw_minimap_cell(int32_t sx, int32_t sy, int32_t size, int color,
+        t_cub *cub)
+{
+    int32_t x;
+    int32_t y;
+
+    y = 0;
+    while (y < size)
+    {
+        x = 0;
+        while (x < size)
+        {
+            put_pixel((int)(sx + x), (int)(sy + y), color, cub);
+            x++;
+        }
+        y++;
+    }
+}
+
+static void draw_minimap_player(t_cub *cub, int32_t origin_x, int32_t origin_y)
+{
+    int32_t px;
+    int32_t py;
+    int32_t half;
+    int32_t size;
+
+    size = cub->minimap_scale / 2 + 2;
+    half = size / 2;
+    px = origin_x + (int32_t)cub->minimap_scale * 5 + cub->minimap_scale / 2;
+    py = origin_y + (int32_t)cub->minimap_scale * 5 + cub->minimap_scale / 2;
+    draw_minimap_cell(px - half, py - half, size, 0xFFFF00, cub);
+}
+
+void    draw_minimap(t_cub *cub)
+{
+    int32_t cell_x;
+    int32_t cell_y;
+    int32_t start_x;
+    int32_t start_y;
+    int32_t offset_x;
+    int32_t offset_y;
+    int32_t screen_x;
+    int32_t screen_y;
+    int32_t view_size;
+    int32_t margin;
+
+    if (!cub || !cub->minimap_visible || !cub->player)
+        return ;
+    view_size = 11;
+    margin = 16;
+    cell_x = (int32_t)(cub->player->position->x / BLOCK);
+    cell_y = (int32_t)(cub->player->position->y / BLOCK);
+    start_x = cell_x - view_size / 2;
+    start_y = cell_y - view_size / 2;
+    offset_y = 0;
+    while (offset_y < view_size)
+    {
+        offset_x = 0;
+        while (offset_x < view_size)
+        {
+            screen_x = margin + offset_x * cub->minimap_scale;
+            screen_y = margin + offset_y * cub->minimap_scale;
+            if (start_y + offset_y >= 0 && start_y + offset_y < cub->map_height
+                && start_x + offset_x >= 0
+                && start_x + offset_x < cub->map_width)
+            {
+                if ((int32_t)ft_strlen(cub->map[start_y + offset_y])
+                    > start_x + offset_x
+                    && cub->map[start_y + offset_y][start_x + offset_x] == '1')
+                    draw_minimap_cell(screen_x, screen_y, cub->minimap_scale,
+                        0x2A4B8D, cub);
+            }
+            offset_x++;
+        }
+        offset_y++;
+    }
+    draw_minimap_player(cub, margin, margin);
+}
+
+void    toggle_minimap(t_cub *cub)
+{
+    if (!cub)
+        return ;
+    cub->minimap_visible = !cub->minimap_visible;
 }

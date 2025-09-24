@@ -12,188 +12,175 @@
 
 #include "../includes/cub3d.h"
 
-/**
- * Initialise les valeurs par défaut du joueur
- * @param player Pointeur vers la structure du joueur
- */
-void	init_player(t_player *player)
+static bool can_walk(t_cub *cub, double next_x, double next_y)
+{
+    double  radius;
+
+    radius = cub->player->radius;
+    if (touch(next_x - radius, next_y - radius, cub))
+        return (false);
+    if (touch(next_x + radius, next_y - radius, cub))
+        return (false);
+    if (touch(next_x - radius, next_y + radius, cub))
+        return (false);
+    if (touch(next_x + radius, next_y + radius, cub))
+        return (false);
+    return (true);
+}
+
+void    init_player(t_player *player)
 {
     if (!player)
-		return ;
-	
-	// Allouer les coordonnées - OBLIGATOIRE !
-	player->position = malloc(sizeof(t_cord));
-	player->direction = malloc(sizeof(t_cord));
-	
-	if (!player->position || !player->direction)
-	{
-		if (player->position)
-			free(player->position);
-		if (player->direction)
-			free(player->direction);
-		return ;
-	}
-	
-    player->position->x = WIDTH / 2; //a modifier plus tard
-    player->position->y = HEIGHT / 2;
-    player->direction->x = 0;
-    player->direction->y = 0;
-	player->key_up = false;
+        return ;
+    player->angle = 0.0;
+    player->cos_angle = 1.0;
+    player->sin_angle = 0.0;
+    player->fov = 60.0;
+    player->move_speed = 6;
+    player->rotation_speed = 0.05;
+    player->radius = 12.0;
+    player->position->x = 0.0;
+    player->position->y = 0.0;
+    player->direction->x = 0.0;
+    player->direction->y = 0.0;
+    player->plane->x = 0.0;
+    player->plane->y = 0.0;
+    player->key_up = false;
     player->key_down = false;
     player->key_left = false;
     player->key_right = false;
-
     player->left_rotate = false;
-    player->right_rotate = false; 
+    player->right_rotate = false;
 }
+
+void    update_player_trig(t_player *player)
+{
+    double  plane_factor;
+
+    if (!player)
+        return ;
+    player->cos_angle = cos(player->angle);
+    player->sin_angle = sin(player->angle);
+    player->direction->x = player->cos_angle;
+    player->direction->y = player->sin_angle;
+    plane_factor = tan(deg_to_radiant(player->fov) / 2.0);
+    player->plane->x = -player->sin_angle * plane_factor;
+    player->plane->y = player->cos_angle * plane_factor;
+}
+
+void    move_player(t_cub *cub)
+{
+    t_player    *player;
+    double      step;
+    double      next_x;
+    double      next_y;
+    bool        rotated;
+
+    if (!cub || !cub->player)
+        return ;
+    player = cub->player;
+    rotated = false;
+    if (player->left_rotate)
+    {
+        player->angle -= player->rotation_speed;
+        rotated = true;
+    }
+    if (player->right_rotate)
+    {
+        player->angle += player->rotation_speed;
+        rotated = true;
+    }
+    if (player->angle < 0.0)
+        player->angle += 2.0 * PI;
+    if (player->angle >= 2.0 * PI)
+        player->angle -= 2.0 * PI;
+    if (rotated)
+        update_player_trig(player);
+    step = (double)player->move_speed;
+    next_x = player->position->x;
+    next_y = player->position->y;
+    if (player->key_up)
+    {
+        next_x += player->cos_angle * step;
+        next_y += player->sin_angle * step;
+    }
+    if (player->key_down)
+    {
+        next_x -= player->cos_angle * step;
+        next_y -= player->sin_angle * step;
+    }
+    if (player->key_left)
+    {
+        next_x += -player->sin_angle * step;
+        next_y += player->cos_angle * step;
+    }
+    if (player->key_right)
+    {
+        next_x += player->sin_angle * step;
+        next_y += -player->cos_angle * step;
+    }
+    if (can_walk(cub, next_x, player->position->y))
+        player->position->x = next_x;
+    if (can_walk(cub, player->position->x, next_y))
+        player->position->y = next_y;
+}
+
 int key_press(int keycode, t_cub *cub)
 {
-    printf("DEBUG: key_press appelée avec keycode=%d\n", keycode);
-    if (cub && cub->player)
+    if (!cub || !cub->player)
+        return (0);
+    if (keycode == W)
+        cub->player->key_up = true;
+    else if (keycode == S)
+        cub->player->key_down = true;
+    else if (keycode == A)
+        cub->player->key_left = true;
+    else if (keycode == D)
+        cub->player->key_right = true;
+    else if (keycode == LEFT)
+        cub->player->left_rotate = true;
+    else if (keycode == RIGHT)
+        cub->player->right_rotate = true;
+    else if (keycode == KEY_M)
+        toggle_minimap(cub);
+    else if (keycode == ESC_KEY)
     {
-        printf("DEBUG: cub et cub->player sont valides\n");
-        if (keycode == W)
-        {
-            cub->player->key_up = true;
-            printf("DEBUG: key_up set to true\n");
-        }
-        else if (keycode == S)
-        {
-            cub->player->key_down = true;
-            printf("DEBUG: key_down set to true\n");
-        }
-        else if (keycode == A)
-        {
-            cub->player->key_left = true;
-            printf("DEBUG: key_left set to true\n");
-        }
-        else if (keycode == D)
-        {
-            cub->player->key_right = true;
-            printf("DEBUG: key_right set to true\n");
-        }
-        else if (keycode == LEFT)
-        {
-            cub->player->left_rotate = true;
-        }
-        else if (keycode == RIGHT)
-        {
-            cub->player->right_rotate = true;
-        }
-        else if (keycode == ESC_KEY)
-        {
-            cleanup_resources(cub);
-            exit(0);
-        }
+        cleanup_resources(cub);
+        exit(0);
     }
-    else
-    {
-        printf("DEBUG: cub ou cub->game est NULL\n");
-    }
+    /* Anciennes traces de debug (printf) supprimées pour fluidifier la boucle
+     * d'évènements. */
     return (0);
 }
 
 int key_drop(int keycode, t_cub *cub)
 {
-    printf("DEBUG: key_drop appelée avec keycode=%d\n", keycode);
-    if (cub && cub->player)
-    {
-        if (keycode == W)
-        {
-            cub->player->key_up = false;
-            printf("DEBUG: key_up set to false\n");
-        }
-        if (keycode == S)
-        {
-            cub->player->key_down = false;
-            printf("DEBUG: key_down set to false\n");
-        }
-        if (keycode == A)
-        {
-            cub->player->key_left = false;
-            printf("DEBUG: key_left set to false\n");
-        }
-        if (keycode == D)
-        {
-            cub->player->key_right = false;
-            printf("DEBUG: key_right set to false\n");
-        }
-        else if (keycode == LEFT)
-        {
-            cub->player->left_rotate = false;
-        }
-        else if (keycode == RIGHT)
-        {
-            cub->player->right_rotate = false;
-        }
-    }
+    if (!cub || !cub->player)
+        return (0);
+    if (keycode == W)
+        cub->player->key_up = false;
+    if (keycode == S)
+        cub->player->key_down = false;
+    if (keycode == A)
+        cub->player->key_left = false;
+    if (keycode == D)
+        cub->player->key_right = false;
+    if (keycode == LEFT)
+        cub->player->left_rotate = false;
+    if (keycode == RIGHT)
+        cub->player->right_rotate = false;
     return (0);
 }
 
-/**
- * Libère la mémoire allouée pour le joueur
- * @param player Pointeur vers la structure du joueur
- */
-void	free_player(t_player *player)
+void    free_player(t_player *player)
 {
-	if (!player)
-		return ;
-	
-	if (player->position)
-		free(player->position);
-	if (player->direction)
-		free(player->direction);
-
-	
-	free(player);
-}
-
-void    move_player(t_player *player)
-{
-    //printf("DEBUG move_player: key_right=%d, position avant=%.0f\n", player->key_right, player->position->x);
-    
-    int walking;
-    double angle_speed = 0.05;
-    float cos_angle = cos(player->angle);
-    float sin_angle = sin(player->angle);
-    
-    if (player->left_rotate)
-        player->angle -= angle_speed;
-    if (player->right_rotate)
-        player->angle += angle_speed;
-    if (player->angle < 0)
-        player->angle += 2 * PI;
-    if (player->angle >= 2 * PI)
-        player->angle -= 2 * PI;
-
-    walking = 5;
-    if (player->key_up)
-    {
-        player->position->x += cos_angle * walking;
-        player->position->y += sin_angle * walking; 
-    }
-    if (player->key_down)
-    {
-        player->position->x -= cos_angle * walking;
-        player->position->y -= sin_angle * walking; 
-    }
-    // Strafe left/right (perpendicular to direction)
-    if (player->key_left)
-    {
-        player->position->x += -sin_angle * walking;
-        player->position->y += cos_angle * walking; 
-    }
-    if (player->key_right)
-    {
-        player->position->x += sin_angle * walking;
-        player->position->y += -cos_angle * walking; 
-    }
-    
-    //printf("DEBUG move_player: position après=%.0f\n", player->position->x);
-
-// Limites pour éviter de sortir de la fenêtre
-    if (player->position->x < 0) player->position->x = 0;
-    if (player->position->y < 0) player->position->y = 0;
-    if (player->position->x > WIDTH - 10) player->position->x = WIDTH - 10;  // -10 pour la taille du triangle
-    if (player->position->y > HEIGHT - 10) player->position->y = HEIGHT - 10;
+    if (!player)
+        return ;
+    if (player->position)
+        free(player->position);
+    if (player->direction)
+        free(player->direction);
+    if (player->plane)
+        free(player->plane);
+    free(player);
 }

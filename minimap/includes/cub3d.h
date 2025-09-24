@@ -30,11 +30,12 @@
 
 // Defines
 # define BLOCK 40
-#define WIDTH 800
-#define HEIGHT 600
+# define WIDTH 800
+# define HEIGHT 600
 
 # define LEFT 65361
 # define RIGHT 65363
+# define KEY_M 109
 
 # define PI 3.14159265353
 // Définitions des touches
@@ -57,39 +58,44 @@ typedef struct s_cub
     char    *ea_path;
     t_color *f_color; // During parsing ft_convert_color() -> transforme la string en struct
     t_color *c_color;
-    char    **file;
-    char    **map_start;
-    char    **map;
-    int window_width; // default value : 800
-    int window_lenght; // default value : 600
-    // Champs MLX intégrés (anciennement dans t_game)
-    void    *mlx;
-    void    *window;
-    void    *image;
-    char    *data;
-    int     bpp;
-    int     size_line;
-    int     endian;
+    char        **file;
+    char        **map_start;
+    char        **map;
+    int32_t     map_width;
+    int32_t     map_height;
+    int         window_width;
+    int         window_lenght;
+    void        *mlx;
+    void        *window;
+    void        *image;
+    char        *data;
+    int         bpp;
+    int         size_line;
+    int         endian;
+    bool        minimap_visible;
+    int16_t     minimap_scale;
     t_player    *player;
 }   t_cub;
 
 // Structure qui contient toutes les informations du joueur 
 typedef struct s_player
 {
-    t_cord  *position;
-    t_cord  *direction;
-    t_cord  *plane; // chercher ce que c'est concrétement
-    float angle;
-    double  fov;
-    double  move_frame;
-    double  rotation_frame;
-    double  radius; // chercher ce que c'est concrétement
-    bool    key_up;
-    bool    key_down;
-    bool    key_left;
-    bool    key_right;
-    bool    left_rotate;
-    bool    right_rotate;
+    t_cord      *position;
+    t_cord      *direction;
+    t_cord      *plane;
+    double      angle;
+    double      cos_angle;
+    double      sin_angle;
+    double      fov;
+    int16_t     move_speed;
+    double      rotation_speed;
+    double      radius;
+    bool        key_up;
+    bool        key_down;
+    bool        key_left;
+    bool        key_right;
+    bool        left_rotate;
+    bool        right_rotate;
     
 }   t_player;
 
@@ -139,6 +145,7 @@ int16_t start_game(t_cub *cubing);
 int16_t initialisation(t_cub *cubing);
 void init_mlx(t_cub *cub);
 int draw_loop(t_cub *cubing);
+bool touch(double px, double py, t_cub *game);
 
 // Fonctions de dessin
 void put_pixel(int x, int y, int color, t_cub *cub);
@@ -146,10 +153,13 @@ void draw_y_triangle(int x, int y, int size, int color, t_cub *cub);
 void close_image(t_cub *cub);
 void draw_square(int x, int y, int size, int color, t_cub *cub);
 void draw_map(t_cub *cub);
+void draw_minimap(t_cub *cub);
+void toggle_minimap(t_cub *cub);
 
 // Fonctions du joueur
 void init_player(t_player *player);
-void move_player(t_player *player);
+void move_player(t_cub *cub);
+void update_player_trig(t_player *player);
 int key_press(int keycode, t_cub *cub);
 int key_drop(int keycode, t_cub *cub);
 void draw_map(t_cub *cub);

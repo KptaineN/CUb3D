@@ -128,21 +128,25 @@ int	check_map(t_cub *cub)
 		return (1);
 	i = 0;
 	j = 0;
-	while (cub->map_start[i])
-	{
-		if (!line_is_empty(cub->map_start[i]))
-		{
-			cub->map[j] = copy_map(cub->map_start[i]);
-			if (!cub->map[j])
-				return (free_partial_map(cub->map, j), cub->map = NULL, 1);
-			j++;
-		}
-		i++;
-	}
-	cub->map[j] = NULL;
-	if (is_map_valid(cub))
-		return (map_fail(cub,
-			"Error: invalid map (must be closed and contain exactly one spawn N/S/E/W)"));
+        cub->map_width = 0;
+        while (cub->map_start[i])
+        {
+                if (!line_is_empty(cub->map_start[i]))
+                {
+                        cub->map[j] = copy_map(cub->map_start[i]);
+                        if (!cub->map[j])
+                                return (free_partial_map(cub->map, j), cub->map = NULL, 1);
+                        if ((int32_t)ft_strlen(cub->map[j]) > cub->map_width)
+                                cub->map_width = (int32_t)ft_strlen(cub->map[j]);
+                        j++;
+                }
+                i++;
+        }
+        cub->map[j] = NULL;
+        cub->map_height = j;
+        if (is_map_valid(cub))
+                return (map_fail(cub,
+                        "Error: invalid map (must be closed and contain exactly one spawn N/S/E/W)"));
 	return (0);
 }
 

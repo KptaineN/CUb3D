@@ -43,8 +43,9 @@ void init_values(t_cub *cub)
     cub->file = NULL;
     cub->map_start = NULL;
     cub->map = NULL;
+    cub->map_width = 0;
+    cub->map_height = 0;
     cub->player = NULL;
-    // Initialiser les nouveaux champs MLX
     cub->mlx = NULL;
     cub->window = NULL;
     cub->image = NULL;
@@ -52,6 +53,8 @@ void init_values(t_cub *cub)
     cub->bpp = 0;
     cub->size_line = 0;
     cub->endian = 0;
+    cub->minimap_visible = false;
+    cub->minimap_scale = 8;
 }
 
 void free_cub(t_cub *cub)
