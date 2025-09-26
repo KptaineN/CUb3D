@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 13:46:22 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/23 18:26:34 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/25 18:57:47 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,14 @@
 # define PI 3.14159265353
 // Définitions des touches
 #define W 119
+#define Z 122
+#define DOWN 65364
+#define UP 65362
 #define A 97
+#define Q 113
 #define S 115
 #define D 100
+#define SHIFT 65505
 #define ESC_KEY 65307
 
 typedef struct s_player t_player;
@@ -88,6 +93,7 @@ typedef struct s_player
     double      sin_angle;
     double      fov;
     int16_t     move_speed;
+    int16_t     run;
     double      rotation_speed;
     double      radius;
     bool        key_up;

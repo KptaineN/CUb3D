@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:30:00 by nkief             #+#    #+#             */
-/*   Updated: 2025/09/23 18:07:55 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/25 21:31:02 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void    init_player(t_player *player)
     player->angle = 0.0;
     player->cos_angle = 1.0;
     player->sin_angle = 0.0;
-    player->fov = 60.0;
-    player->move_speed = 6;
-    player->rotation_speed = 0.05;
+    player->fov = 66.0;
+    player->move_speed = 1;
+    player->rotation_speed = 0.04;
     player->radius = 12.0;
     player->position->x = 0.0;
     player->position->y = 0.0;
@@ -51,6 +51,7 @@ void    init_player(t_player *player)
     player->key_right = false;
     player->left_rotate = false;
     player->right_rotate = false;
+    player->run = false;
 }
 
 void    update_player_trig(t_player *player)
@@ -109,12 +110,12 @@ void    move_player(t_cub *cub)
         next_x -= player->cos_angle * step;
         next_y -= player->sin_angle * step;
     }
-    if (player->key_left)
+    if (player->key_right)
     {
         next_x += -player->sin_angle * step;
         next_y += player->cos_angle * step;
     }
-    if (player->key_right)
+    if (player->key_left)
     {
         next_x += player->sin_angle * step;
         next_y += -player->cos_angle * step;
@@ -125,24 +126,33 @@ void    move_player(t_cub *cub)
         player->position->y = next_y;
 }
 
+void ft_run(t_cub *cub)
+{
+    if (cub->player->run == true)
+        cub->player->move_speed = 10;
+
+}
+
 int key_press(int keycode, t_cub *cub)
 {
     if (!cub || !cub->player)
         return (0);
-    if (keycode == W)
+    if (keycode == W || keycode == UP || keycode == Z)
         cub->player->key_up = true;
-    else if (keycode == S)
+    else if (keycode == S || keycode == DOWN)
         cub->player->key_down = true;
-    else if (keycode == A)
-        cub->player->key_left = true;
     else if (keycode == D)
         cub->player->key_right = true;
+    else if (keycode == Q || keycode == A) 
+        cub->player->key_left = true;
     else if (keycode == LEFT)
         cub->player->left_rotate = true;
     else if (keycode == RIGHT)
         cub->player->right_rotate = true;
     else if (keycode == KEY_M)
         toggle_minimap(cub);
+    else if (keycode == SHIFT)
+        ft_run(cub);
     else if (keycode == ESC_KEY)
     {
         cleanup_resources(cub);
@@ -157,11 +167,11 @@ int key_drop(int keycode, t_cub *cub)
 {
     if (!cub || !cub->player)
         return (0);
-    if (keycode == W)
+    if (keycode == W || keycode == Z || keycode == UP)
         cub->player->key_up = false;
-    if (keycode == S)
+    if (keycode == S || keycode == DOWN)
         cub->player->key_down = false;
-    if (keycode == A)
+    if (keycode == A || keycode == Q)
         cub->player->key_left = false;
     if (keycode == D)
         cub->player->key_right = false;

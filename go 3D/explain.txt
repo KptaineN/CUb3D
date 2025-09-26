@@ -1,0 +1,60 @@
+Optimisations pour accélérer le raycasting
+
+    Éviter la racine carrée à chaque rayon. draw_line calcule une distance avec sqrt puis la hauteur de colonne pour chaque pixel de largeur de fenêtre.
+
+Remplace ce calcul par une distance projetée (par ex. un algorithme DDA qui accumule la longueur le long de l’axe majoritaire) ou conserve la distance quadratique et n’effectue qu’une division de correction de perspective. Ainsi, tu diminues fortement le coût flottant tout en gardant le respect de la Norminette (implémentation maison du DDA) et sans nouvelles bibliothèques.
+
+Réduire le surcoût trigonométrique. Tu recalcules cos et sin à chaque rayon dans draw_line, puis tu les recalcules encore dans move_player pour les déplacements.
+
+Précalcule une table des cosinus/sinus pour l’angle d’ouverture et mets-la à jour une seule fois par frame (par ex. un tableau statique de float ou double). Pour le joueur, conserve cos(angle) et sin(angle) dans la structure et ne les mets à jour qu’en cas de rotation.
+
+Remplacer le balayage pixel par pixel. Dans draw_line, chaque rayon avance de 1 unité en x et y via ray_x += cos_angle.
+
+Cela oblige à effectuer beaucoup d’itérations (surtout dans les grands espaces). Le DDA parcourt la carte cellule par cellule avec un nombre constant d’opérations, ce qui réduit considérablement les boucles et s’accorde bien avec l’utilisation d’int32_t pour les pas dans la grille.
+
+Limiter les appels à put_pixel. Chaque frame, close_image remplit tout l’écran à zéro avec deux boucles imbriquées.
+
+Préfère créer une image neuve via mlx_new_image/mlx_destroy_image ou utiliser ft_memset sur cub->data si la Norminette l’autorise. Tu peux aussi n’effacer que la zone à redessiner (double buffering minimal).
+
+Optimiser touch. La vérification strnlen et le comptage des lignes à chaque test de collision ajoutent beaucoup de travail.
+
+    Pré-calcule la largeur et la hauteur de la carte une fois lors du parsing, et utilise ces valeurs stockées en int32_t pour les contrôles.
+
+Exploitation des types int32_t, int16_t, int8_t
+
+    Stockage des coordonnées et dimensions. Les indices de map (x, y) restent raisonnables : des int32_t pour les positions mondes, des int16_t pour les dimensions écran (WIDTH, HEIGHT) et la taille des blocs. Dans draw_map, x et y peuvent être en int16_t (voire uint16_t) car la minimap rasterise des cellules relativement petites.
+
+Flags et clés clavier. Les booléens de t_player peuvent être compressés dans un champ de bits uint8_t pour limiter la taille de la structure, tout en restant lisibles et conformes à la Norminette. Les pas de déplacement (walking = 5) peuvent devenir int16_t constants.
+
+Tampon graphique. Dans put_pixel, i peut être int32_t (ou uint32_t) pour indiquer l’offset mémoire dans la ligne de l’image.
+
+    Cela évite les conversions implicites et sécurise les débordements.
+
+Approche pour une minimap toggleable et centrée
+
+    État de visibilité. Ajoute un booléen minimap_visible dans t_cub. Dans key_press, capte la touche M et inverse ce flag.
+
+Assure-toi de réinitialiser à false dans l’initialisation.
+
+Zone de rendu réduite. Plutôt que d’utiliser draw_map pour dessiner toute la carte à l’échelle réelle, crée une fonction draw_minimap qui :
+
+    définit une échelle (par ex. 1 tuile = 4 px) ;
+
+    limite le viewport à une fenêtre (par ex. 15×15 tuiles) centrée sur la position du joueur convertie en coordonnées de tuile ;
+
+    appelle une version adaptée de draw_square qui clippe dans la petite zone en haut de l’écran.
+
+Centrage dynamique. Calcule l’origine de la minimap en prenant player_tile_x - viewport_width/2. Utilise des int32_t pour gérer les offsets, puis convertis en int16_t pour les coordonnées écran si besoin. Assure-toi de clipper les tuiles hors carte (en te servant des dimensions précalculées évoquées plus haut).
+
+Affichage conditionnel. Dans draw_loop, n’appelle draw_minimap que si minimap_visible est vrai, ce qui évite le coût lorsque la minimap est cachée.
+
+Icone joueur. Réutilise draw_y_triangle en la plaçant aux coordonnées de la minimap (non en plein écran).
+Bonus fluidité
+
+    Réduire les traces de debug. Les printf dans les gestionnaires de touches bloquent la boucle graphique.
+
+    Désactive-les ou conditionne-les à un mode debug.
+
+    Limiter la conversion flottante/int. Dans draw_line, put_pixel reçoit des float. Convertis-les en int32_t à l’endroit du tir du rayon pour éviter les conversions implicites multiples.
+
+En combinant ces optimisations (calculs DDA, précalcul trigonométrique, usage judicieux de types entiers et réduction des effacements complets), tu devrais obtenir un rendu beaucoup plus fluide tout en respectant la Norminette et les bibliothèques autorisées.
