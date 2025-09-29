@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 13:46:22 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/29 21:18:18 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/30 00:04:19 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ void  find_player_plane(t_cub *cub);
 void    move_player(t_cub *cub);
 double perform_dda(t_cub *cub, double ray_dir_x, double ray_dir_y, int *side);
 
-void draw_column(t_cub *cub, int column, double ray_dir_x, double ray_dir_y);
+void    update_player_trig(t_cub *cub);
+void draw_column(t_cub *cub, int column, double ray_x, double ray_y);
+
 void    put_pixel(int x, int y, int color, t_cub *cub);
 
 

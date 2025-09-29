@@ -79,6 +79,8 @@ t_cord make_ray(int column, int width, t_cord dir, t_cord plane)
     return ray;
 }
 
+// Forward declaration for draw_column
+
 void	ray_rendu(t_cub *cub)
 {
 	t_cord	dir;

@@ -6,7 +6,7 @@
 /*   By: nkief <nkief@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:53:33 by adi-marc          #+#    #+#             */
-/*   Updated: 2025/09/29 21:04:41 by nkief            ###   ########.fr       */
+/*   Updated: 2025/09/30 00:08:59 by nkief            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ static void  find_player_pos(t_cub *cub)
             if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' 
                 || cub->map[i][j] == 'W' || cub->map[i][j] == 'E')
             {
-                cub->player->position->x = j;
-                cub->player->position->y = i;
+               // cub->player->position->x = j;
+               // cub->player->position->y = i;
+
+                cub->player->position->x = ((double)j + 0.5) * BLOCK;
+                cub->player->position->y = ((double)i + 0.5) * BLOCK;
                 return ;
             }
             j++;
@@ -40,8 +43,10 @@ static void    find_player_dir(t_cub *cub)
 {
     char    dir;
     
-    dir = cub->map[(int)cub->player->position->y][(int)cub->player->position->x];
-    if (dir == 'N')
+   // dir = cub->map[(int)cub->player->position->y][(int)cub->player->position->x];
+   dir = cub->map[(int)(cub->player->position->y / BLOCK)]
+        [(int)(cub->player->position->x / BLOCK)]; 
+   if (dir == 'N')
     {
         cub->player->direction->x = (double)0;
         cub->player->direction->y = (double)-1;
@@ -98,14 +103,18 @@ void  find_player_plane(t_cub *cub)
 
 void    set_player_angles(t_cub *cub)
 {
-    cub->player->move_frame = 1.0;
-    cub->player->rotation_frame = 0.05;
-    cub->player->radius = 0.05;
-    cub->player->angle = 0.0;
-    cub->player->cos_angle = 1.0;
-    cub->player->sin_angle = 0.0;
-    cub->player->fov = 60;
+    cub->player->move_frame = 0.05;
+    cub->player->rotation_frame = 0.5 * BLOCK;
+    cub->player->radius = 0.05  * BLOCK;
+    //cub->player->angle = 0.0;
+   // cub->player->cos_angle = 1.0;
+   // cub->player->sin_angle = 0.0;
+   // cub->player->fov = 60;
+    if (cub->player->fov <= 0.0)
+        cub->player->fov = 60;
+    update_player_trig(cub);
 }
+
 
 static void set_player_keys(t_cub *cub)
 {
@@ -124,9 +133,13 @@ int    player_init(t_cub *cub)
     find_player_pos(cub);
     find_player_dir(cub);
     set_player_angles(cub);
-    find_player_plane(cub);
-    cub->player->move_frame = 0.1;
-    cub->player->rotation_frame = 0.05;
+    if (cub->player->fov <= 0.0)
+        cub->player->fov = 60;
+    cub->player->angle = atan2(cub->player->direction->y, cub->player->direction->x);
+    update_player_trig(cub);
+   // find_player_plane(cub);
+   // cub->player->move_frame = 0.1;
+ //   cub->player->rotation_frame = 0.05;
     set_player_keys(cub);
     // cub->player->radius = 0.05;
     return (1);

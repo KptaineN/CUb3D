@@ -29,6 +29,7 @@ SRC_FILES = $(SRC_DIR)/main.c \
 			$(SRC_DIR)/game/launcher.c \
 			$(SRC_DIR)/game/rayon.c \
 			$(SRC_DIR)/game/dda.c \
+			$(SRC_DIR)/game/drawing.c \
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

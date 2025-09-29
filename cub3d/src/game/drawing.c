@@ -29,7 +29,8 @@ void draw_column(t_cub *cub, int column, double ray_dir_x, double ray_dir_y)
     if (distance < 1e-6)
         distance = 1e-6;
 
-    line_height = (int)((double)HEIGHT / (distance / BLOCK));
+   // line_height = (int)((double)HEIGHT / (distance / BLOCK));
+    line_height = (int)((double)HEIGHT / distance); 
     draw_start = -line_height / 2 + HEIGHT / 2;
     if (draw_start < 0)
         draw_start = 0;

@@ -5,7 +5,8 @@ void update_player_trig(t_cub *cub)
 {
     t_player *player;
 
-    if (!cub || !cub->player)
+    if (!cub || !cub->player->direction 
+        || !cub->player->plane)
         return;
     player = cub->player;
     player->cos_angle = cos(player->angle);
@@ -44,48 +45,56 @@ static int is_wall(t_cub *cub, int map_x, int map_y)
  */
 int is_valid_position(t_cub *cub, double x, double y)
 {
+
     double radius;
+    double left;
+    double right;
+    double top;
+    double bottom;
 
     radius = cub->player->radius;
+    left = (x - radius) / BLOCK;
+    right = (x + radius) / BLOCK;
+    top = (y - radius) / BLOCK;
+    bottom = (y + radius) / BLOCK;
 
     // Check the four corners of the player's bounding box
-    if (is_wall(cub, (int)(x - radius), (int)(y - radius))) // Top-left
-        return (0);
-    if (is_wall(cub, (int)(x + radius), (int)(y - radius))) // Top-right
-        return (0);
-    if (is_wall(cub, (int)(x - radius), (int)(y + radius))) // Bottom-left
-        return (0);
-    if (is_wall(cub, (int)(x + radius), (int)(y + radius))) // Bottom-right
-        return (0);
 
-    return (1);
+    if (is_wall(cub, (int)left, (int)top)) // Top-left
+        return (1);
+    if (is_wall(cub, (int)right, (int)top)) // Top-right
+        return (1);
+    if (is_wall(cub, (int)left, (int)bottom)) // Bottom-left
+        return (1);
+    if (is_wall(cub, (int)right, (int)bottom)) // Bottom-right
+        return (1);
+
+    return (0);
 }
 
-static void rotate_player(t_player *player)
+static void rotate_player(t_cub *cub)
 {
-    double  old_dir_x; 
-    double  old_plane_x;
+    //double  old_dir_x; 
+    //double  old_plane_x;
 
-    if (player->left_rotate)
+    bool        rotated;
+
+    if (!cub || !cub->player)
+        return ;
+    cub->player = cub->player;
+    rotated = false;
+    if ( cub->player->left_rotate)
     {
-        player->angle -= player->rotation_frame;
-        old_dir_x = player->direction->x;
-        player->direction->x = player->direction->x * cos(-player->rotation_frame) - player->direction->y * sin(-player->rotation_frame);
-        player->direction->y = old_dir_x * sin(-player->rotation_frame) + player->direction->y * cos(-player->rotation_frame);
-        old_plane_x = player->plane->x;
-        player->plane->x = player->plane->x * cos(-player->rotation_frame) - player->plane->y * sin(-player->rotation_frame);
-        player->plane->y = old_plane_x * sin(-player->rotation_frame) + player->plane->y * cos(-player->rotation_frame);
+        cub->player->angle -=  cub->player->rotation_frame;
+        rotated = true;
     }
-    if (player->right_rotate)
+    if ( cub->player->right_rotate)
     {
-        player->angle += player->rotation_frame;
-        old_dir_x = player->direction->x;
-        player->direction->x = player->direction->x * cos(player->rotation_frame) - player->direction->y * sin(player->rotation_frame);
-        player->direction->y = old_dir_x * sin(player->rotation_frame) + player->direction->y * cos(player->rotation_frame);
-        old_plane_x = player->plane->x;
-        player->plane->x = player->plane->x * cos(player->rotation_frame) - player->plane->y * sin(player->rotation_frame);
-        player->plane->y = old_plane_x * sin(player->rotation_frame) + player->plane->y * cos(player->rotation_frame);
+        cub->player->angle +=  cub->player->rotation_frame;
+        rotated = true;
     }
+    if (rotated)
+        update_player_trig(cub);
 }
 
 static void move_forward_backward(t_cub *cub)
@@ -97,7 +106,7 @@ static void move_forward_backward(t_cub *cub)
     {
         new_x = cub->player->position->x + cub->player->direction->x * cub->player->move_frame;
         new_y = cub->player->position->y + cub->player->direction->y * cub->player->move_frame;
-        if (is_valid_position(cub, new_x, new_y))
+        if (is_valid_position(cub, new_x, new_y) != 0)
         {
             cub->player->position->x = new_x;
             cub->player->position->y = new_y;
@@ -107,7 +116,7 @@ static void move_forward_backward(t_cub *cub)
     {
         new_x = cub->player->position->x - cub->player->direction->x * cub->player->move_frame;
         new_y = cub->player->position->y - cub->player->direction->y * cub->player->move_frame;
-        if (is_valid_position(cub, new_x, new_y))
+        if (is_valid_position(cub, new_x, new_y) != 0)
         {
             cub->player->position->x = new_x;
             cub->player->position->y = new_y;
@@ -124,7 +133,7 @@ static void move_strafe(t_cub *cub)
     {
         new_x = cub->player->position->x + cub->player->direction->y * cub->player->move_frame;
         new_y = cub->player->position->y - cub->player->direction->x * cub->player->move_frame;
-        if (is_valid_position(cub, new_x, new_y))
+        if (is_valid_position(cub, new_x, new_y) != 0)
         {
             cub->player->position->x = new_x;
             cub->player->position->y = new_y;
@@ -134,7 +143,7 @@ static void move_strafe(t_cub *cub)
     {
         new_x = cub->player->position->x - cub->player->direction->y * cub->player->move_frame;
         new_y = cub->player->position->y + cub->player->direction->x * cub->player->move_frame;
-        if (is_valid_position(cub, new_x, new_y))
+        if (is_valid_position(cub, new_x, new_y) != 0)
         {
             cub->player->position->x = new_x;
             cub->player->position->y = new_y;
@@ -144,7 +153,7 @@ static void move_strafe(t_cub *cub)
 
 void move_player(t_cub *cub)
 {
-    rotate_player(cub->player);
+    rotate_player(cub);
     move_forward_backward(cub);
     move_strafe(cub);
 }

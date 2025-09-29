@@ -52,6 +52,30 @@ typedef struct s_dda_vars {
     int32_t step_x, step_y;
 } t_dda_vars;
 
+static bool map_is_wall(t_cub *cub, int32_t map_x, int32_t map_y)
+{
+    char    **map;
+    size_t  map_height;
+    size_t  row_len;
+    char    tile;
+
+    if (!cub || !cub->map)
+        return true;
+    map = cub->map;
+    if (map_y < 0 || map_x < 0)
+        return true;
+    map_height = 0;
+    while (map[map_height])
+        map_height++;
+    if ((size_t)map_y >= map_height)
+        return true;
+    row_len = ft_strlen(map[map_y]);
+    if ((size_t)map_x >= row_len)
+        return true;
+    tile = map[map_y][map_x];
+    return (tile == '1' || tile == ' ');
+}
+
 static void dda_init_position(t_cub *cub, t_dda_vars *v)
 {
     v->pos_x = cub->player->position->x / (double)BLOCK;
@@ -60,40 +84,80 @@ static void dda_init_position(t_cub *cub, t_dda_vars *v)
     v->map_y = (int32_t)v->pos_y;
 }
 
+static double dda_calc_delta(double ray_dir)
+{
+    double resu;
+
+    if (ray_dir == 0.0)
+        return 1e30;
+    resu = fabs(1.0 / ray_dir);
+    return(resu);
+}
+
 static void dda_init_delta(double ray_dir_x, double ray_dir_y, t_dda_vars *v)
 {
-    v->delta_x = (ray_dir_x == 0.0) ? 1e30 : fabs(1.0 / ray_dir_x);
-    v->delta_y = (ray_dir_y == 0.0) ? 1e30 : fabs(1.0 / ray_dir_y);
+    v->delta_x = dda_calc_delta(ray_dir_x);
+    v->delta_y = dda_calc_delta(ray_dir_y);
+}
+
+static double dda_side_dist(double pos, int32_t map, double delta, double ray_dir)
+{
+    if (ray_dir < 0.0)
+        return (pos - map) * delta;
+    else
+        return (map + 1.0 - pos) * delta;
 }
 
 static void dda_init_side_step(double ray_dir_x, double ray_dir_y, t_dda_vars *v)
 {
     if (ray_dir_x < 0.0)
-    {
         v->step_x = -1;
-        v->side_x = (v->pos_x - v->map_x) * v->delta_x;
-    }
     else
-    {
         v->step_x = 1;
-        v->side_x = (v->map_x + 1.0 - v->pos_x) * v->delta_x;
-    }
+    v->side_x = dda_side_dist(v->pos_x, v->map_x, v->delta_x, ray_dir_x);
+
     if (ray_dir_y < 0.0)
-    {
         v->step_y = -1;
-        v->side_y = (v->pos_y - v->map_y) * v->delta_y;
-    }
     else
-    {
         v->step_y = 1;
-        v->side_y = (v->map_y + 1.0 - v->pos_y) * v->delta_y;
-    }
+    v->side_y = dda_side_dist(v->pos_y, v->map_y, v->delta_y, ray_dir_y);
 }
 
-static void dda_loop(t_dda_vars *v, int *side, int max_steps)
+static size_t map_step_limit(t_cub *cub)
 {
-    int steps = 0;
-    while (steps < max_steps)
+    size_t  height;
+    size_t  max_width;
+    size_t  len;
+
+    if (!cub || !cub->map)
+        return 0;
+    height = 0;
+    max_width = 0;
+    while (cub->map[height])
+    {
+        len = ft_strlen(cub->map[height]);
+        if (len > max_width)
+            max_width = len;
+        height++;
+    }
+    if (height == 0 || max_width == 0)
+        return 0;
+    return height * max_width;
+}
+
+
+static bool dda_loop(t_cub *cub, t_dda_vars *v, int *side)
+{
+    int steps;
+    size_t  step_limit;
+    
+    steps = 0;
+
+    step_limit = map_step_limit(cub);
+    if (step_limit == 0)
+        return false;
+    steps = 0;
+    while (true)
     {
         if (v->side_x < v->side_y)
         {
@@ -108,18 +172,22 @@ static void dda_loop(t_dda_vars *v, int *side, int max_steps)
             *side = 1;
         }
         steps++;
+        if (map_is_wall(cub, v->map_x, v->map_y))
+            return true;
     }
 }
 
 double perform_dda(t_cub *cub, double ray_dir_x, double ray_dir_y, int *side)
 {
-    t_dda_vars v;
-    dda_init_position(cub, &v);
-    dda_init_delta(ray_dir_x, ray_dir_y, &v);
-    dda_init_side_step(ray_dir_x, ray_dir_y, &v);
-    dda_loop(&v, side, 20);
+    t_dda_vars dda;
+    dda_init_position(cub, &dda);
+    dda_init_delta(ray_dir_x, ray_dir_y, &dda);
+    dda_init_side_step(ray_dir_x, ray_dir_y, &dda);
+    *side = 0;
+    if (!dda_loop(cub, &dda, side))
+        return 0.0;
     if (*side == 0)
-        return (v.side_x - v.delta_x) * (double)BLOCK;
+        return (dda.side_x - dda.delta_x) * (double)BLOCK;
     else
-        return (v.side_y - v.delta_y) * (double)BLOCK;
+        return (dda.side_y - dda.delta_y) * (double)BLOCK;
 }
