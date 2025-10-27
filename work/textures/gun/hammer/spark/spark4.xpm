@@ -1,0 +1,16 @@
+/* XPM */
+static const char *spark4[] = {
+/* columns rows colors chars-per-pixel */
+"8 8 2 1 ",
+"  c #FDD179",
+". c magenta",
+/* pixels */
+"........",
+" .......",
+"........",
+".... ...",
+"........",
+"........",
+". ......",
+" ..... ."
+};

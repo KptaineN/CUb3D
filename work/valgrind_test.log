@@ -1,0 +1,38 @@
+==101688== Memcheck, a memory error detector
+==101688== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==101688== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==101688== Command: ./cub3d map/valid/10.cub
+==101688== Parent PID: 101687
+==101688== 
+==101688== Syscall param writev(vector[0]) points to uninitialised byte(s)
+==101688==    at 0x4BD1894: writev (writev.c:26)
+==101688==    by 0x4CC8ACA: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==101688==    by 0x4CC8C4E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==101688==    by 0x4CC9D7E: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==101688==    by 0x48C30B8: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==101688==    by 0x48C8148: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==101688==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==101688==    by 0x11EAB5: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==101688==    by 0x11E7E5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==101688==    by 0x113F6F: init_mlx (game_init.c:24)
+==101688==    by 0x113FD2: window_init (game_init.c:63)
+==101688==    by 0x114DBD: start_game (launcher.c:34)
+==101688==  Address 0x4e2ccbc is 28 bytes inside a block of size 16,384 alloc'd
+==101688==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==101688==    by 0x48B242D: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==101688==    by 0x11E596: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==101688==    by 0x113F15: init_mlx (game_init.c:17)
+==101688==    by 0x113FD2: window_init (game_init.c:63)
+==101688==    by 0x114DBD: start_game (launcher.c:34)
+==101688==    by 0x10FB3B: main (main.c:49)
+==101688== 
+==101688== 
+==101688== HEAP SUMMARY:
+==101688==     in use at exit: 0 bytes in 0 blocks
+==101688==   total heap usage: 10,762 allocs, 10,762 frees, 1,540,588 bytes allocated
+==101688== 
+==101688== All heap blocks were freed -- no leaks are possible
+==101688== 
+==101688== Use --track-origins=yes to see where uninitialised values come from
+==101688== For lists of detected and suppressed errors, rerun with: -s
+==101688== ERROR SUMMARY: 4 errors from 1 contexts (suppressed: 0 from 0)

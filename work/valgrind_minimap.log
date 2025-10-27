@@ -1,0 +1,715 @@
+==194619== Memcheck, a memory error detector
+==194619== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==194619== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==194619== Command: ./cub3d map/valid/3.cub
+==194619== Parent PID: 194618
+==194619== 
+==194619== Syscall param writev(vector[0]) points to uninitialised byte(s)
+==194619==    at 0x4BD1894: writev (writev.c:26)
+==194619==    by 0x4CC8ACA: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CC8C4E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CC9D7E: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48C30B8: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C8148: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==  Address 0x4d5cacc is 28 bytes inside a block of size 16,384 alloc'd
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B242D: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 
+==194619== Process terminating with default action of signal 15 (SIGTERM)
+==194619==    at 0x4BC34C4: poll (poll.c:29)
+==194619==    by 0x4CC88C9: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCA28B: xcb_wait_for_event (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48C8257: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C8507: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== HEAP SUMMARY:
+==194619==     in use at exit: 96,755 bytes in 149 blocks
+==194619==   total heap usage: 2,371 allocs, 2,222 frees, 140,101 bytes allocated
+==194619== 
+==194619== 3 bytes in 1 blocks are still reachable in loss record 1 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4B5C35E: strdup (strdup.c:42)
+==194619==    by 0x48B20DA: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 8 bytes in 1 blocks are still reachable in loss record 2 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4B5C35E: strdup (strdup.c:42)
+==194619==    by 0x48AF0CE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x487483F: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 8 bytes in 1 blocks are still reachable in loss record 3 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4872B16: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749F6: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 10 bytes in 1 blocks are still reachable in loss record 4 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4B5C35E: strdup (strdup.c:42)
+==194619==    by 0x48AF0CE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x4924033: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B2C72: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 12 bytes in 1 blocks are still reachable in loss record 5 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12877A: ft_strdup (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111C0F: retrieve_colors (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111E9F: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 12 bytes in 1 blocks are still reachable in loss record 6 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12877A: ft_strdup (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111B88: retrieve_colors (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111E9F: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 12 bytes in 1 blocks are still reachable in loss record 7 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11A409: door_system_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100FD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 8 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x111BE5: retrieve_colors (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111E9F: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 9 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x111B65: retrieve_colors (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x111E9F: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 10 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1126FA: player_allocate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1124B1: player_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FABF: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 11 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x112718: player_allocate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1124B1: player_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FABF: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 12 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x112736: player_allocate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1124B1: player_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FABF: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 13 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4CCB46D: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCC0D9: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48C13C9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16 bytes in 1 blocks are still reachable in loss record 14 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A956B: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23D0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 21 bytes in 1 blocks are still reachable in loss record 15 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B25D1: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 24 bytes in 1 blocks are still reachable in loss record 16 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4874021: XextCreateExtension (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48744C4: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 24 bytes in 1 blocks are still reachable in loss record 17 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4B5C35E: strdup (strdup.c:42)
+==194619==    by 0x48AF0CE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x487483F: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4874502: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 24 bytes in 1 blocks are still reachable in loss record 18 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4874A10: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 27 bytes in 1 blocks are still reachable in loss record 19 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x128AE3: ft_strtrim (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x112043: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 27 bytes in 1 blocks are still reachable in loss record 20 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x128AE3: ft_strtrim (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x112063: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 27 bytes in 1 blocks are still reachable in loss record 21 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x128AE3: ft_strtrim (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1120D3: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 27 bytes in 1 blocks are still reachable in loss record 22 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x128AE3: ft_strtrim (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x112083: is_path_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100DD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 29 bytes in 1 blocks are still reachable in loss record 23 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48AB00C: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48ADFE6: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x1297F2: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 32 bytes in 1 blocks are still reachable in loss record 24 of 73
+==194619==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4CCF712: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF80A: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF8CE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF945: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48B296A: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 32 bytes in 1 blocks are still reachable in loss record 25 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4CC8257: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CC8A95: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CC8EEF: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CC9E6D: xcb_wait_for_reply (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF85A: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF8CE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCF945: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48B296A: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 32 bytes in 1 blocks are still reachable in loss record 26 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4874812: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 32 bytes in 1 blocks are still reachable in loss record 27 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4874812: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4874502: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 33 bytes in 1 blocks are still reachable in loss record 28 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48AB00C: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48ADFE6: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x1297DD: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 40 bytes in 1 blocks are still reachable in loss record 29 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48ABF79: XInitThreads (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x400571E: call_init.part.0 (dl-init.c:74)
+==194619==    by 0x4005823: call_init (dl-init.c:120)
+==194619==    by 0x4005823: _dl_init (dl-init.c:121)
+==194619==    by 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==194619==    by 0x1: ???
+==194619==    by 0x1FFF0000EA: ???
+==194619==    by 0x1FFF0000F2: ???
+==194619== 
+==194619== 40 bytes in 1 blocks are still reachable in loss record 30 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48ABF96: XInitThreads (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x400571E: call_init.part.0 (dl-init.c:74)
+==194619==    by 0x4005823: call_init (dl-init.c:120)
+==194619==    by 0x4005823: _dl_init (dl-init.c:121)
+==194619==    by 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==194619==    by 0x1: ???
+==194619==    by 0x1FFF0000EA: ???
+==194619==    by 0x1FFF0000F2: ???
+==194619== 
+==194619== 40 bytes in 1 blocks are still reachable in loss record 31 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48ABFB3: XInitThreads (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x400571E: call_init.part.0 (dl-init.c:74)
+==194619==    by 0x4005823: call_init (dl-init.c:120)
+==194619==    by 0x4005823: _dl_init (dl-init.c:121)
+==194619==    by 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==194619==    by 0x1: ???
+==194619==    by 0x1FFF0000EA: ???
+==194619==    by 0x1FFF0000F2: ???
+==194619== 
+==194619== 40 bytes in 1 blocks are still reachable in loss record 32 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A95B5: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23D0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 40 bytes in 1 blocks are still reachable in loss record 33 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C16F9: _XPollfdCacheInit (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23E0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 48 bytes in 1 blocks are still reachable in loss record 34 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C1350: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 48 bytes in 1 blocks are still reachable in loss record 35 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C1365: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 48 bytes in 1 blocks are still reachable in loss record 36 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A95A4: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23D0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 48 bytes in 1 blocks are still reachable in loss record 37 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A95C5: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23D0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 60 bytes in 1 blocks are still reachable in loss record 38 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11A431: door_system_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100FD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 72 bytes in 1 blocks are still reachable in loss record 39 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B248C: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 108 bytes in 1 blocks are still reachable in loss record 40 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B2CE1: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 112 bytes in 1 blocks are still reachable in loss record 41 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C1255: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 112 bytes in 1 blocks are still reachable in loss record 42 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B2751: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 128 bytes in 1 blocks are still reachable in loss record 43 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B267F: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 128 bytes in 1 blocks are still reachable in loss record 44 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48AF0BE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x4924033: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B2C72: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 128 bytes in 1 blocks are still reachable in loss record 45 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48AF0BE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x487483F: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 128 bytes in 1 blocks are still reachable in loss record 46 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48AF0BE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x487483F: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4874502: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 136 bytes in 1 blocks are still reachable in loss record 47 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12973E: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 152 bytes in 1 blocks are still reachable in loss record 48 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x492421E: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B2C72: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 160 bytes in 1 blocks are still reachable in loss record 49 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A0938: XCreateGC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B29EC: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 160 bytes in 1 blocks are still reachable in loss record 50 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A0938: XCreateGC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129969: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 168 bytes in 1 blocks are still reachable in loss record 51 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B2B34: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 192 bytes in 1 blocks are still reachable in loss record 52 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11BA3B: pickup_system_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FACB: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 192 bytes in 1 blocks are still reachable in loss record 53 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48A9586: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B23D0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 208 bytes in 1 blocks are still reachable in loss record 54 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4872AC9: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x48749F6: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x4879C44: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==194619==    by 0x129593: mlx_int_deal_shm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x129800: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 208 bytes in 1 blocks are still reachable in loss record 55 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C351D: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C69AE: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C81B0: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 224 bytes in 1 blocks are still reachable in loss record 56 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11AD64: barrel_system_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAD7: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 240 bytes in 1 blocks are still reachable in loss record 57 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x110DB5: check_map (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100ED: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 304 bytes in 1 blocks are still reachable in loss record 58 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x10FF61: file_populate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100BD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 416 bytes in 2 blocks are still reachable in loss record 59 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C351D: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C69AE: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C81F9: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 424 bytes in 1 blocks are still reachable in loss record 60 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12862F: ft_calloc (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1126DB: player_allocate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1124B1: player_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FABF: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 512 bytes in 1 blocks are still reachable in loss record 61 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48ADE7A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48ADF1E: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x1297DD: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 730 bytes in 29 blocks are still reachable in loss record 62 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x110F31: check_map (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100ED: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 917 bytes in 37 blocks are still reachable in loss record 63 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x12877A: ft_strdup (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FFAF: file_populate (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100BD: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 936 bytes in 1 blocks are still reachable in loss record 64 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x1298CF: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 1,040 bytes in 5 blocks are still reachable in loss record 65 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C351D: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C69AE: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C81F9: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C8507: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 1,456 bytes in 7 blocks are still reachable in loss record 66 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48C351D: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C69AE: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C81B0: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48C8507: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129C75: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1299A5: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x118404: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 4,096 bytes in 1 blocks are still reachable in loss record 67 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4B2D1B4: _IO_file_doallocate (filedoalloc.c:101)
+==194619==    by 0x4B3D523: _IO_doallocbuf (genops.c:347)
+==194619==    by 0x4B3AF8F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+==194619==    by 0x4B3BAAE: _IO_new_file_xsputn (fileops.c:1244)
+==194619==    by 0x4B3BAAE: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==194619==    by 0x4B2FC5C: puts (ioputs.c:40)
+==194619==    by 0x1115D4: wall_check (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1112A5: is_map_valid (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x110EA6: check_map (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1100ED: ft_cub_parser (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAB3: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 4,720 bytes in 1 blocks are still reachable in loss record 68 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B20C6: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 8,276 bytes in 1 blocks are still reachable in loss record 69 of 73
+==194619==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4CCB678: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCC0D9: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48C13C9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 12,576 bytes in 1 blocks are still reachable in loss record 70 of 73
+==194619==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x10FA96: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 16,384 bytes in 1 blocks are still reachable in loss record 71 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B242D: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 18,816 bytes in 2 blocks are still reachable in loss record 72 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x48B27E0: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== 21,176 bytes in 1 blocks are still reachable in loss record 73 of 73
+==194619==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==194619==    by 0x4CCB396: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x4CCC0D9: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==194619==    by 0x48C13C9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x48B20FD: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==194619==    by 0x129756: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x1183DE: window_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x11930C: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619==    by 0x10FAE5: main (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==194619== 
+==194619== LEAK SUMMARY:
+==194619==    definitely lost: 0 bytes in 0 blocks
+==194619==    indirectly lost: 0 bytes in 0 blocks
+==194619==      possibly lost: 0 bytes in 0 blocks
+==194619==    still reachable: 96,755 bytes in 149 blocks
+==194619==         suppressed: 0 bytes in 0 blocks
+==194619== 
+==194619== Use --track-origins=yes to see where uninitialised values come from
+==194619== For lists of detected and suppressed errors, rerun with: -s
+==194619== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

@@ -1,0 +1,54 @@
+==46014== Memcheck, a memory error detector
+==46014== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==46014== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==46014== Command: ./cub3d map/valid/1.cub
+==46014== Parent PID: 33581
+==46014== 
+==46014== Syscall param writev(vector[0]) points to uninitialised byte(s)
+==46014==    at 0x4BD1894: writev (writev.c:26)
+==46014==    by 0x4CC8ACA: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==46014==    by 0x4CC8C4E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==46014==    by 0x4CC9D7E: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==46014==    by 0x48C30B8: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==46014==    by 0x48C8148: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==46014==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==46014==    by 0x11F445: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x11F175: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x113D20: init_mlx (game_init.c:24)
+==46014==    by 0x113D83: window_init (game_init.c:63)
+==46014==    by 0x114921: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==  Address 0x4d4341c is 28 bytes inside a block of size 16,384 alloc'd
+==46014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46014==    by 0x48B242D: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==46014==    by 0x11EF26: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x113CC6: init_mlx (game_init.c:17)
+==46014==    by 0x113D83: window_init (game_init.c:63)
+==46014==    by 0x114921: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x10FB9B: main (main.c:49)
+==46014==  Uninitialised value was created by a stack allocation
+==46014==    at 0x11F350: mlx_int_anti_resize_win (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014== 
+==46014== 
+==46014== Process terminating with default action of signal 15 (SIGTERM)
+==46014==    at 0x11BDB2: build_alien_mask_map (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x11DD15: alien_detect_mask (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x11939F: init_textures (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x113D8F: window_init (game_init.c:65)
+==46014==    by 0x114921: start_game (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==46014==    by 0x10FB9B: main (main.c:49)
+==46014== 
+==46014== HEAP SUMMARY:
+==46014==     in use at exit: 126,481 bytes in 143 blocks
+==46014==   total heap usage: 2,072 allocs, 1,929 frees, 1,103,081 bytes allocated
+==46014== 
+==46014== LEAK SUMMARY:
+==46014==    definitely lost: 0 bytes in 0 blocks
+==46014==    indirectly lost: 0 bytes in 0 blocks
+==46014==      possibly lost: 0 bytes in 0 blocks
+==46014==    still reachable: 126,481 bytes in 143 blocks
+==46014==         suppressed: 0 bytes in 0 blocks
+==46014== Reachable blocks (those to which a pointer was found) are not shown.
+==46014== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==46014== 
+==46014== For lists of detected and suppressed errors, rerun with: -s
+==46014== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

@@ -1,0 +1,18 @@
+NO ./textures/tiles/north.xpm
+SO ./textures/tiles/south.xpm
+EA ./textures/tiles/east.xpm
+WE ./textures/tiles/west.xpm
+
+C 100,100,160
+F 30,30,30
+
+1111111111111111
+1E000000000000P1
+1000000000000011
+100000000D00001
+111111D11111111
+100000000000B01
+111111101111111
+      101
+      1X1
+      111

@@ -1,0 +1,149 @@
+==100014== Memcheck, a memory error detector
+==100014== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==100014== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==100014== Command: ./cub3d map/valid/10.cub
+==100014== 
+==100014== Syscall param writev(vector[0]) points to uninitialised byte(s)
+==100014==    at 0x4BD1894: writev (writev.c:26)
+==100014==    by 0x4CC8ACA: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==100014==    by 0x4CC8C4E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==100014==    by 0x4CC9D7E: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==100014==    by 0x48C30B8: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==100014==    by 0x48C8148: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==100014==    by 0x48C852B: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==100014==    by 0x11EA25: mlx_int_wait_first_expose (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11E755: mlx_new_window (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x113F6F: init_mlx (game_init.c:24)
+==100014==    by 0x113FD2: window_init (game_init.c:63)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==  Address 0x4e2d8bc is 28 bytes inside a block of size 16,384 alloc'd
+==100014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==100014==    by 0x48B242D: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==100014==    by 0x11E506: mlx_init (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x113F15: init_mlx (game_init.c:17)
+==100014==    by 0x113FD2: window_init (game_init.c:63)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==    by 0x10FB3B: main (main.c:49)
+==100014==  Uninitialised value was created by a stack allocation
+==100014==    at 0x11E930: mlx_int_anti_resize_win (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014== 
+[ALIEN] update start dt=0.016667 a=0x4f41780 a->pos=0x4f41820 player_pos=0x4e23390
+[ALIEN] computed vx before use
+[ALIEN] computed vy before use
+[ALIEN] dist=912.140340
+[ALIEN] nx=0.964764
+[ALIEN] ny=0.263117
+[ALIEN] dot=0.964764 half_cos=0.866025 dir=(1.000000,0.000000)
+[ALIEN] in_fov=0
+[ALIEN] not visible state=0
+[ALIEN] perform PATROL move
+[ALIEN] after PATROL move pos=(101.000000,100.000000)
+[ALIEN] update start dt=14.199926 a=0x4f41780 a->pos=0x4f41820 player_pos=0x4e23390
+[ALIEN] computed vx before use
+[ALIEN] computed vy before use
+[ALIEN] dist=911.175614
+[ALIEN] nx=0.964688
+[ALIEN] ny=0.263396
+[ALIEN] dot=0.964688 half_cos=0.866025 dir=(1.000000,0.000000)
+[ALIEN] in_fov=0
+[ALIEN] not visible state=0
+[ALIEN] perform PATROL move
+[ALIEN] after PATROL move pos=(101.000000,100.000000)
+[ALIEN] update start dt=13.375292 a=0x4f41780 a->pos=0x4f41820 player_pos=0x4e23390
+[ALIEN] computed vx before use
+[ALIEN] computed vy before use
+[ALIEN] dist=911.175614
+[ALIEN] nx=0.964688
+[ALIEN] ny=0.263396
+[ALIEN] dot=-0.964688 half_cos=0.866025 dir=(-1.000000,-0.000000)
+[ALIEN] in_fov=0
+[ALIEN] not visible state=0
+[ALIEN] perform PATROL move
+[ALIEN] after PATROL move pos=(101.000000,100.000000)
+[ALIEN] update start dt=11.636072 a=0x4f41780 a->pos=0x4f41820 player_pos=0x4e23390
+[ALIEN] computed vx before use
+[ALIEN] computed vy before use
+[ALIEN] dist=911.175614
+[ALIEN] nx=0.964688
+[ALIEN] ny=0.263396
+[ALIEN] dot=0.964688 half_cos=0.866025 dir=(1.000000,0.000000)
+[ALIEN] in_fov=0
+[ALIEN] not visible state=0
+[ALIEN] perform PATROL move
+[ALIEN] after PATROL move pos=(101.000000,100.000000)
+[ALIEN] update start dt=10.726788 a=0x4f41780 a->pos=0x4f41820 player_pos=0x4e23390
+[ALIEN] computed vx before use
+[ALIEN] computed vy before use
+[ALIEN] dist=911.175614
+[ALIEN] nx=0.964688
+[ALIEN] ny=0.263396
+[ALIEN] dot=-0.964688 half_cos=0.866025 dir=(-1.000000,-0.000000)
+[ALIEN] in_fov=0
+[ALIEN] not visible state=0
+[ALIEN] perform PATROL move
+[ALIEN] after PATROL move pos=(101.000000,100.000000)
+La map est bien entourée de murs
+==100014== 
+==100014== HEAP SUMMARY:
+==100014==     in use at exit: 448 bytes in 4 blocks
+==100014==   total heap usage: 10,437 allocs, 10,433 frees, 1,528,912 bytes allocated
+==100014== 
+==100014== 136 bytes in 1 blocks are indirectly lost in loss record 1 of 4
+==100014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==100014==    by 0x48730A6: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==100014==    by 0x11EBAB: mlx_int_new_xshm_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11EEC0: mlx_new_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11F799: mlx_int_parse_xpm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11FBB3: mlx_xpm_file_to_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x117F50: textur_load (textures.c:13)
+==100014==    by 0x1184A4: init_textures (textures.c:141)
+==100014==    by 0x113FDE: window_init (game_init.c:65)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==    by 0x10FB3B: main (main.c:49)
+==100014== 
+==100014== 136 bytes in 1 blocks are indirectly lost in loss record 2 of 4
+==100014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==100014==    by 0x48730A6: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==100014==    by 0x11EBAB: mlx_int_new_xshm_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11EEC0: mlx_new_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11F799: mlx_int_parse_xpm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11FBB3: mlx_xpm_file_to_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x117F50: textur_load (textures.c:13)
+==100014==    by 0x11857F: init_textures (textures.c:159)
+==100014==    by 0x113FDE: window_init (game_init.c:65)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==    by 0x10FB3B: main (main.c:49)
+==100014== 
+==100014== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 3 of 4
+==100014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==100014==    by 0x11EB7B: mlx_int_new_xshm_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11EEC0: mlx_new_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11F799: mlx_int_parse_xpm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11FBB3: mlx_xpm_file_to_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x117F50: textur_load (textures.c:13)
+==100014==    by 0x1184A4: init_textures (textures.c:141)
+==100014==    by 0x113FDE: window_init (game_init.c:65)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==    by 0x10FB3B: main (main.c:49)
+==100014== 
+==100014== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 4
+==100014==    at 0x484D953: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==100014==    by 0x11EB7B: mlx_int_new_xshm_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11EEC0: mlx_new_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11F799: mlx_int_parse_xpm (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x11FBB3: mlx_xpm_file_to_image (in /home/nkief/Documents/42/Cub3D/ON_The_wrock/work/cub3d)
+==100014==    by 0x117F50: textur_load (textures.c:13)
+==100014==    by 0x11857F: init_textures (textures.c:159)
+==100014==    by 0x113FDE: window_init (game_init.c:65)
+==100014==    by 0x114D25: start_game (launcher.c:34)
+==100014==    by 0x10FB3B: main (main.c:49)
+==100014== 
+==100014== LEAK SUMMARY:
+==100014==    definitely lost: 176 bytes in 2 blocks
+==100014==    indirectly lost: 272 bytes in 2 blocks
+==100014==      possibly lost: 0 bytes in 0 blocks
+==100014==    still reachable: 0 bytes in 0 blocks
+==100014==         suppressed: 0 bytes in 0 blocks
+==100014== 
+==100014== For lists of detected and suppressed errors, rerun with: -s
+==100014== ERROR SUMMARY: 7 errors from 3 contexts (suppressed: 0 from 0)

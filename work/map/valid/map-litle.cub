@@ -1,0 +1,11 @@
+SO ./textures/tiles/south.xpm
+EA ./textures/tiles/south.xpm
+WE ./textures/tiles/south.xpm
+NO ./textures/tiles/north.xpm
+F 220,111,119
+C 225,111,200
+
+
+ 1
+1N1
+ 1

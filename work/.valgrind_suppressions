@@ -1,0 +1,32 @@
+# Valgrind suppression file for MLX/X11 uninitialised bytes
+# These are known issues with the MLX library and X11 that are not actual leaks
+
+{
+   MLX_X11_uninitialised_bytes
+   Memcheck:Param
+   writev(vector[0])
+   fun:writev
+   obj:*/libxcb.so*
+   obj:*/libxcb.so*
+   fun:xcb_writev
+   obj:*/libX11.so*
+}
+
+{
+   MLX_X11_uninitialised_bytes_send
+   Memcheck:Param
+   write(buf)
+   fun:write
+   obj:*/libxcb.so*
+   obj:*/libxcb.so*
+   fun:xcb_send_request
+   obj:*/libX11.so*
+}
+
+{
+   MLX_X11_syscall_param
+   Memcheck:Param
+   socketcall.sendto(msg)
+   fun:send
+   obj:*/libxcb.so*
+}
